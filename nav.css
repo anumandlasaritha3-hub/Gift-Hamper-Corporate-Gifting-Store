@@ -1532,3 +1532,54 @@ html[dir="rtl"] .footer-contact ul li {
 
 
 
+
+
+
+
+
+
+
+
+/* ==========================================
+   VELMORA - MOBILE HOME DROPDOWN FIX
+========================================== */
+
+@media (max-width: 1200px) {
+
+  .site-header .home-dropdown {
+    width: 100%;
+  }
+
+  .site-header .home-dropdown > .nav-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .site-header .home-dropdown > .dropdown-menu {
+    display: none;
+    position: static;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .site-header .home-dropdown.dropdown-open > .dropdown-menu {
+    display: block;
+  }
+
+  .site-header .home-dropdown.dropdown-open > .nav-link i {
+    transform: rotate(180deg);
+  }
+
+  .site-header .home-dropdown > .dropdown-menu a {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    cursor: pointer;
+  }
+
+}

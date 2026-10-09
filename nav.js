@@ -81,25 +81,36 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // MOBILE DROPDOWNS
-  document.querySelectorAll(".nav-dropdown").forEach(dropdown => {
-    const link = dropdown.querySelector(".nav-link");
+// ==========================================
+// MOBILE & TABLET DROPDOWNS - FIXED
+// ==========================================
 
-    link.addEventListener("click", event => {
-      if (window.innerWidth <= 1100) {
-        event.preventDefault();
+document.querySelectorAll(".nav-dropdown").forEach(dropdown => {
 
-        const wasOpen = dropdown.classList.contains("dropdown-open");
+ const link = dropdown.querySelector(".nav-link");
+if (!link || !dropdown.querySelector(".dropdown-menu")) return;
 
-        document.querySelectorAll(".nav-dropdown").forEach(item => {
-          item.classList.remove("dropdown-open");
-        });
+  link.addEventListener("click", function(event) {
 
-        if (!wasOpen) {
-          dropdown.classList.add("dropdown-open");
-        }
+    if (window.innerWidth <= 1200) {
+
+      event.preventDefault();
+
+      const wasOpen = dropdown.classList.contains("dropdown-open");
+
+      document.querySelectorAll(".nav-dropdown").forEach(item => {
+        item.classList.remove("dropdown-open");
+      });
+
+      if (!wasOpen) {
+        dropdown.classList.add("dropdown-open");
       }
-    });
+
+    }
+
   });
+
+});
 
   // ACTIVE PAGE HIGHLIGHT
   const currentPage =
@@ -134,15 +145,153 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// HOME DROPDOWN - MOBILE & TABLET
-const homeDropdown = document.querySelector(".home-dropdown");
-const homeLink = homeDropdown?.querySelector(".nav-link");
 
-if (homeDropdown && homeLink) {
-  homeLink.addEventListener("click", function (event) {
-    if (window.innerWidth <= 1200) {
-      event.preventDefault();
-      homeDropdown.classList.toggle("dropdown-open");
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================
+// VELMORA - MOBILE NAVIGATION LINK FIX
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const mainNav = document.getElementById("mainNav");
+
+  if (!mainNav) return;
+
+  mainNav.querySelectorAll("a.nav-link").forEach(link => {
+
+    // Skip dropdown toggle links
+    if (link.closest(".nav-dropdown")) return;
+
+    link.addEventListener("click", function () {
+
+      if (window.innerWidth <= 1200) {
+
+        const href = this.getAttribute("href");
+
+        if (href && href !== "#") {
+          window.location.assign(this.href);
+        }
+
+      }
+
+    });
+
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================
+// VELMORA - FIX: DROPDOWN-WRAPPED LINKS WITHOUT SUBMENU
+// (Products, Corporate Bulk Gifting, Custom Gifting)
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".main-nav .nav-dropdown").forEach(dropdown => {
+
+    // Only handle dropdowns that have NO submenu
+    if (dropdown.querySelector(".dropdown-menu")) return;
+
+    const link = dropdown.querySelector(".nav-link");
+    if (!link) return;
+
+    link.addEventListener("click", function () {
+      if (window.innerWidth <= 1200) {
+        const href = link.getAttribute("href");
+
+        if (href && href !== "#") {
+          window.location.assign(link.href);
+        }
+      }
+    });
+
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ==========================================
+// VELMORA - FIX: ACTIVE LINK AFTER HOSTING
+// Works with /about, /about.html, /about/ and sub-folder hosting
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  function normalize(path) {
+    let p = (path || "").split("#")[0].split("?")[0];
+    const endsWithSlash = p.endsWith("/");
+    p = p.replace(/\/+$/, "").split("/").pop().toLowerCase();
+    p = p.replace(/\.html?$/, "");
+    return { name: p === "" ? "index" : p, endsWithSlash };
+  }
+
+  const current = normalize(window.location.pathname);
+  const homePages = ["index", "home2"];   // both highlight "Home"
+  const links = document.querySelectorAll(".main-nav .nav-link");
+  let matched = false;
+
+  links.forEach(link => {
+    link.classList.remove("active");
+
+    const href = link.getAttribute("href");
+    if (!href || href === "#") return;
+
+    const target = normalize(href).name;
+
+    if (
+      target === current.name ||
+      (target === "index" && homePages.includes(current.name))
+    ) {
+      link.classList.add("active");
+      matched = true;
     }
   });
-}
+
+  // Fallback: site hosted in a sub-folder (e.g. /velmora/) → treat as Home
+  if (!matched && current.endsWithSlash) {
+    const homeLink = document.querySelector('.main-nav .nav-link[href="index.html"]');
+    if (homeLink) homeLink.classList.add("active");
+  }
+});
