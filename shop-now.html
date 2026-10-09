@@ -1,0 +1,880 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shop Now | Velmora</title>
+    <link rel="icon" href="images/logo.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="shop-now.css">
+    <script src="shop-now.js" defer></script>
+</head>
+
+<body>
+
+<div class="shop-app">
+
+    <!-- SIMPLE SHOP TOP BAR -->
+    <div class="shop-topbar">
+
+        <a href="index.html" class="shop-brand">
+            <img src="images/logo.png" alt="Velmora Logo">
+
+            <div class="shop-brand-info">
+                <span class="shop-brand-name">Velmora</span>
+                <span class="shop-brand-tagline">CURATED GIFTS &amp; HAMPERS</span>
+            </div>
+        </a>
+
+        <div class="shop-top-actions">
+
+            <button class="shop-icon-btn shop-rtl-btn" id="shopRtlToggle" type="button">
+                RTL
+            </button>
+
+            <button class="shop-icon-btn" id="shopThemeToggle" type="button" aria-label="Toggle theme">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+
+            <span class="shop-top-divider"></span>
+
+            <button class="shop-icon-btn shop-bag-trigger" id="shopCartOpen" type="button" aria-label="Open shopping bag">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="shopCartCount">0</span>
+            </button>
+
+            <a href="index.html" class="shop-close-btn" aria-label="Close shop">
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN SHOPPING INTERFACE -->
+    <div class="shop-layout" id="shopMain">
+
+        <!-- CATEGORY SIDEBAR -->
+        <aside class="shop-sidebar" id="shopSidebar">
+
+            <div class="shop-sidebar-heading">
+                <div>
+                    <span class="shop-small-label">DISCOVER</span>
+                    <h2>Collections</h2>
+                </div>
+
+                <button class="shop-mobile-close" id="shopFilterClose" type="button" aria-label="Close filters">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="shop-sidebar-section">
+                <h3>Shop by Category</h3>
+
+                <div class="shop-category-list" id="shopCategories">
+                    <button class="active" data-category="all" type="button">
+                        <span>All Gifts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button data-category="hampers" type="button">
+                        <span>Luxury Hampers</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button data-category="birthday" type="button">
+                        <span>Birthday Gifts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button data-category="anniversary" type="button">
+                        <span>Anniversary Gifts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button data-category="corporate" type="button">
+                        <span>Corporate Gifts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <button data-category="personalized" type="button">
+                        <span>Personalized Gifts</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="shop-sidebar-section">
+                <h3>Price Range</h3>
+
+                <div class="shop-price-values">
+                    <span>₹0</span>
+                    <strong id="shopPriceValue">₹10,000</strong>
+                </div>
+
+                <input
+                    type="range"
+                    id="shopPriceRange"
+                    min="0"
+                    max="10000"
+                    step="500"
+                    value="10000"
+                >
+            </div>
+
+            <div class="shop-sidebar-section">
+                <h3>Quick Selection</h3>
+
+                <label class="shop-check">
+                    <input type="checkbox" id="shopFeaturedOnly">
+                    <span>Featured Gifts Only</span>
+                </label>
+            </div>
+
+            <div class="shop-sidebar-bottom">
+                <i class="fa-solid fa-gift"></i>
+                <h3>Made for Meaningful Moments</h3>
+                <p>Beautifully chosen. Thoughtfully presented.</p>
+            </div>
+
+        </aside>
+
+        <!-- PRODUCT AREA -->
+        <main class="shop-content">
+
+            <div class="shop-content-heading">
+
+                <div>
+                    <span class="shop-small-label">THE VELMORA EDIT</span>
+                    <h1>Discover Your <em>Perfect Gift.</em></h1>
+                    <p>Thoughtful treasures for every occasion.</p>
+                </div>
+
+                <button class="shop-wishlist-trigger" id="shopWishlistOpen" type="button">
+                    <i class="fa-regular fa-heart"></i>
+                    Wishlist
+                    <span id="shopWishlistCount">0</span>
+                </button>
+
+            </div>
+
+            <div class="shop-toolbar">
+
+                <button class="shop-mobile-filter-btn" id="shopFilterOpen" type="button">
+                    <i class="fa-solid fa-sliders"></i>
+                    Filters
+                </button>
+
+                <label class="shop-search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input
+                        type="search"
+                        id="shopSearch"
+                        placeholder="Search thoughtful gifts..."
+                        aria-label="Search gifts"
+                    >
+                </label>
+
+                <select id="shopSort" aria-label="Sort gifts">
+                    <option value="featured">Featured</option>
+                    <option value="low">Price: Low to High</option>
+                    <option value="high">Price: High to Low</option>
+                    <option value="name">Name: A to Z</option>
+                </select>
+
+            </div>
+
+            <div class="shop-results-bar">
+                <span id="shopResultCount">Showing all gifts</span>
+                <span class="shop-results-note">
+                    <i class="fa-solid fa-sparkles"></i>
+                    Curated with care
+                </span>
+            </div>
+
+            <div class="shop-products" id="shopProductGrid"></div>
+
+            <div class="shop-empty" id="shopEmpty" hidden>
+                <i class="fa-solid fa-box-open"></i>
+                <h3>No gifts found</h3>
+                <p>Try another category, search or price range.</p>
+                <button id="shopResetFilters" type="button">Clear Filters</button>
+            </div>
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- SHARED OVERLAY -->
+<div class="shop-overlay" id="shopOverlay" hidden></div>
+
+<!-- SHOPPING BAG / WISHLIST DRAWER -->
+<aside class="shop-drawer" id="shopDrawer" aria-hidden="true" aria-label="Shopping panel">
+
+    <div class="shop-drawer-header">
+        <div>
+            <span class="shop-small-label">YOUR SELECTION</span>
+            <h2 id="shopDrawerTitle">Shopping Bag</h2>
+        </div>
+
+        <button id="shopDrawerClose" type="button" aria-label="Close panel">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="shop-drawer-content" id="shopDrawerContent"></div>
+
+    <div class="shop-drawer-footer" id="shopDrawerFooter"></div>
+
+</aside>
+
+
+
+<script>
+    
+/* =========================================
+   VELMORA - SHOPPING INTERFACE JS
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const $ = id => document.getElementById(id);
+
+    const html = document.documentElement;
+    const body = document.body;
+
+    const rtlBtn = $("shopRtlToggle");
+    const themeBtn = $("shopThemeToggle");
+    const sidebar = $("shopSidebar");
+    const drawer = $("shopDrawer");
+    const overlay = $("shopOverlay");
+
+    const grid = $("shopProductGrid");
+    const search = $("shopSearch");
+    const sort = $("shopSort");
+    const priceRange = $("shopPriceRange");
+    const featuredOnly = $("shopFeaturedOnly");
+
+    const formatPrice = value =>
+        "₹" + value.toLocaleString("en-IN");
+
+    function load(key, fallback) {
+        try {
+            const value = localStorage.getItem(key);
+            return value === null ? fallback : JSON.parse(value);
+        } catch {
+            return fallback;
+        }
+    }
+
+    function save(key, value) {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+        } catch {}
+    }
+
+    /* =====================================
+       RTL / LTR
+    ===================================== */
+
+    function setDirection(direction) {
+        const isRTL = direction === "rtl";
+
+        html.dir = isRTL ? "rtl" : "ltr";
+        body.dir = html.dir;
+
+        rtlBtn.textContent = isRTL ? "LTR" : "RTL";
+        rtlBtn.setAttribute("aria-pressed", String(isRTL));
+        rtlBtn.setAttribute(
+            "aria-label",
+            isRTL ? "Switch to LTR" : "Switch to RTL"
+        );
+
+        save("velmora-shop-direction", html.dir);
+    }
+
+    setDirection(load("velmora-shop-direction", "ltr"));
+
+    rtlBtn.addEventListener("click", () => {
+        setDirection(html.dir === "rtl" ? "ltr" : "rtl");
+    });
+
+    /* =====================================
+       DARK / LIGHT
+    ===================================== */
+
+    function setTheme(theme) {
+        const dark = theme === "dark";
+
+        html.dataset.theme = dark ? "dark" : "light";
+        body.classList.toggle("dark-mode", dark);
+
+        themeBtn.innerHTML = dark
+            ? '<i class="fa-solid fa-sun"></i>'
+            : '<i class="fa-solid fa-moon"></i>';
+
+        themeBtn.setAttribute("aria-pressed", String(dark));
+        themeBtn.setAttribute(
+            "aria-label",
+            dark ? "Switch to light mode" : "Switch to dark mode"
+        );
+
+        save("velmora-shop-theme", dark ? "dark" : "light");
+    }
+
+    setTheme(load("velmora-shop-theme", "light"));
+
+    themeBtn.addEventListener("click", () => {
+        setTheme(
+            html.dataset.theme === "dark" ? "light" : "dark"
+        );
+    });
+
+    /* =====================================
+       PRODUCT DATA
+       Replace with your actual products
+    ===================================== */
+
+    const products = [
+        {
+            id: 1,
+            name: "The Luxe Hamper",
+            category: "hampers",
+            price: 3499,
+            badge: "Bestseller",
+            featured: true,
+            description: "A beautiful selection of thoughtful indulgences.",
+            image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 2,
+            name: "Birthday Bliss",
+            category: "birthday",
+            price: 1499,
+            badge: "Popular",
+            featured: true,
+            description: "A cheerful surprise for their special day.",
+            image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 3,
+            name: "Forever Yours",
+            category: "anniversary",
+            price: 2299,
+            badge: "Signature",
+            featured: true,
+            description: "Celebrate love with a memorable gift.",
+            image: "https://images.unsplash.com/photo-1512909006721-3d6018887383?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 4,
+            name: "Executive Edit",
+            category: "corporate",
+            price: 2799,
+            badge: "Premium",
+            featured: false,
+            description: "A refined gift for professional appreciation.",
+            image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 5,
+            name: "Personal Touch",
+            category: "personalized",
+            price: 1899,
+            badge: "Custom",
+            featured: true,
+            description: "Thoughtful details chosen just for them.",
+            image: "https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 6,
+            name: "Golden Moments",
+            category: "hampers",
+            price: 4299,
+            badge: "Luxury",
+            featured: false,
+            description: "An elegant assortment for special occasions.",
+            image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 7,
+            name: "Little Celebrations",
+            category: "birthday",
+            price: 999,
+            badge: "New",
+            featured: false,
+            description: "A sweet gesture with a big meaning.",
+            image: "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 8,
+            name: "Love & Lavender",
+            category: "anniversary",
+            price: 1799,
+            badge: "Romantic",
+            featured: false,
+            description: "A gentle expression of love and affection.",
+            image: "https://images.unsplash.com/photo-1512909006721-3d6018887383?w=700&auto=format&fit=crop"
+        },
+        {
+            id: 9,
+            name: "Gratitude Collection",
+            category: "corporate",
+            price: 3199,
+            badge: "Exclusive",
+            featured: true,
+            description: "A sophisticated way to say thank you.",
+            image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=700&auto=format&fit=crop"
+        }
+    ];
+
+    /* =====================================
+       STATE
+    ===================================== */
+
+    let category = "all";
+    let query = "";
+    let sortMode = "featured";
+    let maxPrice = 10000;
+    let featured = false;
+    let drawerMode = "cart";
+
+    const storedCart = load("velmora-modal-cart", {});
+    const storedWishlist = load("velmora-modal-wishlist", []);
+
+    let cart = storedCart &&
+        typeof storedCart === "object" &&
+        !Array.isArray(storedCart)
+            ? storedCart
+            : {};
+
+    let wishlist = Array.isArray(storedWishlist)
+        ? storedWishlist
+        : [];
+
+    const findProduct = id =>
+        products.find(product => product.id === Number(id));
+
+    function persist() {
+        save("velmora-modal-cart", cart);
+        save("velmora-modal-wishlist", wishlist);
+        updateCounts();
+    }
+
+    function updateCounts() {
+        const count = Object.values(cart).reduce(
+            (total, qty) => total + Number(qty || 0),
+            0
+        );
+
+        $("shopCartCount").textContent = count;
+        $("shopWishlistCount").textContent = wishlist.length;
+    }
+
+    /* =====================================
+       PRODUCT RENDERING
+    ===================================== */
+
+    function renderProducts() {
+        let visible = products.filter(product => {
+            const matchesCategory =
+                category === "all" ||
+                product.category === category;
+
+            const matchesSearch = (
+                product.name + " " +
+                product.description + " " +
+                product.category
+            ).toLowerCase().includes(query);
+
+            return matchesCategory &&
+                matchesSearch &&
+                product.price <= maxPrice &&
+                (!featured || product.featured);
+        });
+
+        if (sortMode === "low") {
+            visible.sort((a, b) => a.price - b.price);
+        } else if (sortMode === "high") {
+            visible.sort((a, b) => b.price - a.price);
+        } else if (sortMode === "name") {
+            visible.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        grid.innerHTML = visible.map(product => {
+            const liked = wishlist.includes(product.id);
+
+            return `
+                <article class="shop-product-card">
+
+                    <div class="shop-product-image">
+                        <img
+                            src="${product.image}"
+                            alt="${product.name}"
+                            loading="lazy"
+                        >
+
+                        <span class="shop-product-badge">
+                            ${product.badge}
+                        </span>
+
+                        <button
+                            type="button"
+                            class="shop-heart-btn ${liked ? "active" : ""}"
+                            data-action="wishlist"
+                            data-id="${product.id}"
+                            aria-label="${liked ? "Remove from" : "Add to"} wishlist"
+                            aria-pressed="${liked}"
+                        >
+                            <i class="${liked ? "fa-solid" : "fa-regular"} fa-heart"></i>
+                        </button>
+                    </div>
+
+                    <div class="shop-product-info">
+                        <span class="shop-product-category">
+                            ${product.category}
+                        </span>
+
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+
+                        <div class="shop-product-bottom">
+                            <strong class="shop-product-price">
+                                ${formatPrice(product.price)}
+                            </strong>
+
+                            <button
+                                class="shop-add-btn"
+                                type="button"
+                                data-action="add"
+                                data-id="${product.id}"
+                            >
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                Add to Bag
+                            </button>
+                        </div>
+                    </div>
+
+                </article>
+            `;
+        }).join("");
+
+        $("shopResultCount").textContent =
+            `Showing ${visible.length} of ${products.length} gifts`;
+
+        $("shopEmpty").hidden = visible.length !== 0;
+    }
+
+    /* =====================================
+       CATEGORY FILTER
+    ===================================== */
+
+    function selectCategory(value) {
+        category = value;
+
+        document.querySelectorAll("[data-category]").forEach(button => {
+            const active = button.dataset.category === value;
+
+            button.classList.toggle("active", active);
+            button.setAttribute("aria-pressed", String(active));
+        });
+
+        renderProducts();
+    }
+
+    $("shopCategories").addEventListener("click", event => {
+        const button = event.target.closest("[data-category]");
+        if (!button) return;
+
+        selectCategory(button.dataset.category);
+        closePanels();
+    });
+
+    search.addEventListener("input", () => {
+        query = search.value.trim().toLowerCase();
+        renderProducts();
+    });
+
+    sort.addEventListener("change", () => {
+        sortMode = sort.value;
+        renderProducts();
+    });
+
+    priceRange.addEventListener("input", () => {
+        maxPrice = Number(priceRange.value);
+        $("shopPriceValue").textContent = formatPrice(maxPrice);
+        renderProducts();
+    });
+
+    featuredOnly.addEventListener("change", () => {
+        featured = featuredOnly.checked;
+        renderProducts();
+    });
+
+    $("shopResetFilters").addEventListener("click", () => {
+        search.value = "";
+        sort.value = "featured";
+        priceRange.value = "10000";
+        featuredOnly.checked = false;
+
+        query = "";
+        sortMode = "featured";
+        maxPrice = 10000;
+        featured = false;
+
+        $("shopPriceValue").textContent = formatPrice(maxPrice);
+        selectCategory("all");
+    });
+
+    /* =====================================
+       CART / WISHLIST
+    ===================================== */
+
+    function addToCart(id) {
+        const product = findProduct(id);
+        if (!product) return;
+
+        cart[id] = Number(cart[id] || 0) + 1;
+        persist();
+        openDrawer("cart");
+    }
+
+    function toggleWishlist(id) {
+        id = Number(id);
+        if (!findProduct(id)) return;
+
+        if (wishlist.includes(id)) {
+            wishlist = wishlist.filter(item => item !== id);
+        } else {
+            wishlist.push(id);
+        }
+
+        persist();
+        renderProducts();
+
+        if (drawer.classList.contains("open")) {
+            renderDrawer();
+        }
+    }
+
+    grid.addEventListener("click", event => {
+        const button = event.target.closest("[data-action]");
+        if (!button) return;
+
+        const id = Number(button.dataset.id);
+
+        if (button.dataset.action === "wishlist") {
+            toggleWishlist(id);
+        } else if (button.dataset.action === "add") {
+            addToCart(id);
+        }
+    });
+
+    /* =====================================
+       PANELS
+    ===================================== */
+
+    function closePanels() {
+        sidebar.classList.remove("open");
+        drawer.classList.remove("open");
+        drawer.setAttribute("aria-hidden", "true");
+
+        overlay.hidden = true;
+        body.classList.remove("shop-panel-open");
+    }
+
+    function openFilters() {
+        closePanels();
+
+        sidebar.classList.add("open");
+        overlay.hidden = false;
+        body.classList.add("shop-panel-open");
+    }
+
+    function openDrawer(mode) {
+        closePanels();
+
+        drawerMode = mode;
+        drawer.classList.add("open");
+        drawer.setAttribute("aria-hidden", "false");
+
+        overlay.hidden = false;
+        body.classList.add("shop-panel-open");
+
+        renderDrawer();
+        $("shopDrawerClose").focus();
+    }
+
+    $("shopFilterOpen").addEventListener("click", openFilters);
+    $("shopFilterClose").addEventListener("click", closePanels);
+
+    $("shopCartOpen").addEventListener("click", () => {
+        openDrawer("cart");
+    });
+
+    $("shopWishlistOpen").addEventListener("click", () => {
+        openDrawer("wishlist");
+    });
+
+    $("shopDrawerClose").addEventListener("click", closePanels);
+    overlay.addEventListener("click", closePanels);
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") closePanels();
+    });
+
+    /* =====================================
+       RENDER DRAWER
+    ===================================== */
+
+    function renderDrawer() {
+        const content = $("shopDrawerContent");
+        const footer = $("shopDrawerFooter");
+
+        if (drawerMode === "wishlist") {
+            $("shopDrawerTitle").textContent = "My Wishlist";
+
+            const items = wishlist.map(findProduct).filter(Boolean);
+
+            content.innerHTML = items.length
+                ? items.map(product => `
+                    <div class="shop-drawer-item">
+                        <img src="${product.image}" alt="${product.name}">
+
+                        <div>
+                            <h3>${product.name}</h3>
+                            <p>${formatPrice(product.price)}</p>
+
+                            <div class="shop-drawer-controls">
+                                <button data-drawer-action="add" data-id="${product.id}">
+                                    Add to Bag
+                                </button>
+
+                                <button class="shop-remove" data-drawer-action="unwish" data-id="${product.id}">
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join("")
+                : `
+                    <div class="shop-drawer-empty">
+                        <i class="fa-regular fa-heart"></i>
+                        Your wishlist is empty.
+                    </div>
+                `;
+
+            footer.innerHTML = "";
+            return;
+        }
+
+        $("shopDrawerTitle").textContent = "Shopping Bag";
+
+        const items = Object.entries(cart)
+            .map(([id, quantity]) => ({
+                product: findProduct(id),
+                quantity: Number(quantity)
+            }))
+            .filter(item => item.product && item.quantity > 0);
+
+        content.innerHTML = items.length
+            ? items.map(({ product, quantity }) => `
+                <div class="shop-drawer-item">
+                    <img src="${product.image}" alt="${product.name}">
+
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>${formatPrice(product.price)}</p>
+
+                        <div class="shop-drawer-controls">
+                            <button data-drawer-action="minus" data-id="${product.id}">−</button>
+                            <span>${quantity}</span>
+                            <button data-drawer-action="plus" data-id="${product.id}">+</button>
+
+                            <button class="shop-remove" data-drawer-action="remove" data-id="${product.id}">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join("")
+            : `
+                <div class="shop-drawer-empty">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    Your shopping bag is empty.
+                </div>
+            `;
+
+        const subtotal = items.reduce(
+            (total, item) =>
+                total + item.product.price * item.quantity,
+            0
+        );
+
+        footer.innerHTML = items.length
+            ? `
+                <div class="shop-drawer-total">
+                    <span>Subtotal</span>
+                    <strong>${formatPrice(subtotal)}</strong>
+                </div>
+
+                <button type="button" disabled>
+                    Checkout Coming Soon
+                </button>
+            `
+            : "";
+    }
+
+    $("shopDrawerContent").addEventListener("click", event => {
+        const button = event.target.closest("[data-drawer-action]");
+        if (!button) return;
+
+        const id = Number(button.dataset.id);
+        const action = button.dataset.drawerAction;
+
+        if (action === "add") {
+            addToCart(id);
+            return;
+        }
+
+        if (action === "unwish") {
+            toggleWishlist(id);
+            return;
+        }
+
+        if (action === "plus") {
+            cart[id] = Number(cart[id] || 0) + 1;
+        }
+
+        if (action === "minus") {
+            cart[id] = Number(cart[id] || 0) - 1;
+            if (cart[id] <= 0) delete cart[id];
+        }
+
+        if (action === "remove") {
+            delete cart[id];
+        }
+
+        persist();
+        renderDrawer();
+    });
+
+    /* =====================================
+       INITIALIZE
+    ===================================== */
+
+    updateCounts();
+    selectCategory("all");
+
+});
+
+</script>
+</body>
+</html>
