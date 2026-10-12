@@ -1583,3 +1583,31 @@ html[dir="rtl"] .footer-contact ul li {
   }
 
 }
+
+
+
+
+
+
+
+/* =====================================
+   VELMORA - FIX DOUBLE ACTIVE UNDERLINE
+===================================== */
+
+/* Remove any extra underline from Home dropdown */
+.main-nav .home-dropdown::before,
+.main-nav .home-dropdown::after {
+    content: none !important;
+}
+
+/* Hide underline on inactive links */
+.main-nav .nav-link:not(.active)::after {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+/* Show only active link underline */
+.main-nav .nav-link.active::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
