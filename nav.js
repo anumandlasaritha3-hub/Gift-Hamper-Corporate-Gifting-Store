@@ -112,7 +112,19 @@ if (!link || !dropdown.querySelector(".dropdown-menu")) return;
 
 });
 
+  // ACTIVE PAGE HIGHLIGHT
+  const currentPage =
+    window.location.pathname.split("/").pop() || "index.html";
 
+  document.querySelectorAll(".main-nav .nav-link").forEach(link => {
+    link.classList.remove("active");
+
+    const targetPage = link.getAttribute("href").split("#")[0];
+
+    if (targetPage === currentPage) {
+      link.classList.add("active");
+    }
+  });
 
   // CLOSE MENU ON RESIZE
   window.addEventListener("resize", () => {
@@ -282,64 +294,4 @@ document.addEventListener("DOMContentLoaded", function () {
     const homeLink = document.querySelector('.main-nav .nav-link[href="index.html"]');
     if (homeLink) homeLink.classList.add("active");
   }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ==========================================
-// VELMORA - SINGLE ACTIVE NAV LINK FIX
-// ==========================================
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  const currentPage =
-    window.location.pathname
-      .split("/")
-      .filter(Boolean)
-      .pop()
-      ?.replace(/\.html?$/i, "")
-      .toLowerCase() || "index";
-
-  const navLinks = document.querySelectorAll(
-    ".main-nav .nav-link"
-  );
-
-  navLinks.forEach(link => {
-    link.classList.remove("active");
-  });
-
-  // Both Home 1 and Home 2 use Home active link
-  const activePage =
-    ["index", "home2"].includes(currentPage)
-      ? "index"
-      : currentPage;
-
-  const activeLink = Array.from(navLinks).find(link => {
-    const linkPage = link.getAttribute("href")
-      .split("#")[0]
-      .split("/")
-      .pop()
-      .replace(/\.html?$/i, "")
-      .toLowerCase();
-
-    return linkPage === activePage;
-  });
-
-  if (activeLink) {
-    activeLink.classList.add("active");
-  }
-
 });
